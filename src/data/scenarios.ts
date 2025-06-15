@@ -1,0 +1,58 @@
+import { Scenario } from '../types';
+
+export const scenarios: Scenario[] = [
+  {
+    id: '1',
+    title: 'Post-Operative Pain Management',
+    description: 'Manage pain for a patient recovering from abdominal surgery',
+    specialty: 'Medical-Surgical',
+    difficulty: 'Intermediate',
+    duration: 30,
+    tags: ['pain management', 'post-op care', 'medication administration'],
+  },
+  {
+    id: '2',
+    title: 'Pediatric Respiratory Distress',
+    description: 'Assess and intervene for a child experiencing breathing difficulties',
+    specialty: 'Pediatrics',
+    difficulty: 'Advanced',
+    duration: 45,
+    tags: ['pediatric care', 'respiratory', 'emergency'],
+  },
+  {
+    id: '3',
+    title: 'Elderly Fall Risk Assessment',
+    description: 'Evaluate fall risk factors and implement safety measures',
+    specialty: 'Geriatrics',
+    difficulty: 'Beginner',
+    duration: 20,
+    tags: ['fall prevention', 'safety', 'assessment'],
+  },
+  {
+    id: '4',
+    title: 'Cardiac Arrest Response',
+    description: 'Respond to a cardiac emergency in the ICU setting',
+    specialty: 'Critical Care',
+    difficulty: 'Advanced',
+    duration: 60,
+    tags: ['emergency', 'cardiac', 'CPR', 'critical care'],
+  },
+  {
+    id: '5',
+    title: 'Medication Administration Safety',
+    description: 'Practice safe medication administration protocols',
+    specialty: 'General',
+    difficulty: 'Beginner',
+    duration: 25,
+    tags: ['medication safety', 'protocols', 'documentation'],
+  },
+  {
+    id: '6',
+    title: 'Wound Care Management',
+    description: 'Assess and treat various types of wounds',
+    specialty: 'Medical-Surgical',
+    difficulty: 'Intermediate',
+    duration: 35,
+    tags: ['wound care', 'infection control', 'healing'],
+  },
+];
