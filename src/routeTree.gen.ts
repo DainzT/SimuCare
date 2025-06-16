@@ -9,73 +9,89 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UploadRouteImport } from './routes/upload'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as ScenariosRouteImport } from './routes/scenarios'
-import { Route as ProgressRouteImport } from './routes/progress'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as SimulationScenarioIdRouteImport } from './routes/simulation.$scenarioId'
+import { Route as SimulationRouteRouteImport } from './routes/simulation/route'
+import { Route as rootRouteRouteImport } from './routes/(root)/route'
+import { Route as rootIndexRouteImport } from './routes/(root)/index'
+import { Route as SimulationScenarioIdRouteImport } from './routes/simulation/$scenarioId'
+import { Route as rootUploadRouteImport } from './routes/(root)/upload'
+import { Route as rootSettingsRouteImport } from './routes/(root)/settings'
+import { Route as rootScenariosRouteImport } from './routes/(root)/scenarios'
+import { Route as rootProgressRouteImport } from './routes/(root)/progress'
 
-const UploadRoute = UploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
+const SimulationRouteRoute = SimulationRouteRouteImport.update({
+  id: '/simulation',
+  path: '/simulation',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const rootRouteRoute = rootRouteRouteImport.update({
+  id: '/(root)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ScenariosRoute = ScenariosRouteImport.update({
-  id: '/scenarios',
-  path: '/scenarios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProgressRoute = ProgressRouteImport.update({
-  id: '/progress',
-  path: '/progress',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+const rootIndexRoute = rootIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => rootRouteRoute,
 } as any)
 const SimulationScenarioIdRoute = SimulationScenarioIdRouteImport.update({
-  id: '/simulation/$scenarioId',
-  path: '/simulation/$scenarioId',
-  getParentRoute: () => rootRouteImport,
+  id: '/$scenarioId',
+  path: '/$scenarioId',
+  getParentRoute: () => SimulationRouteRoute,
+} as any)
+const rootUploadRoute = rootUploadRouteImport.update({
+  id: '/upload',
+  path: '/upload',
+  getParentRoute: () => rootRouteRoute,
+} as any)
+const rootSettingsRoute = rootSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteRoute,
+} as any)
+const rootScenariosRoute = rootScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => rootRouteRoute,
+} as any)
+const rootProgressRoute = rootProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
+  getParentRoute: () => rootRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/progress': typeof ProgressRoute
-  '/scenarios': typeof ScenariosRoute
-  '/settings': typeof SettingsRoute
-  '/upload': typeof UploadRoute
+  '/': typeof rootIndexRoute
+  '/simulation': typeof SimulationRouteRouteWithChildren
+  '/progress': typeof rootProgressRoute
+  '/scenarios': typeof rootScenariosRoute
+  '/settings': typeof rootSettingsRoute
+  '/upload': typeof rootUploadRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/progress': typeof ProgressRoute
-  '/scenarios': typeof ScenariosRoute
-  '/settings': typeof SettingsRoute
-  '/upload': typeof UploadRoute
+  '/simulation': typeof SimulationRouteRouteWithChildren
+  '/progress': typeof rootProgressRoute
+  '/scenarios': typeof rootScenariosRoute
+  '/settings': typeof rootSettingsRoute
+  '/upload': typeof rootUploadRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/': typeof rootIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/progress': typeof ProgressRoute
-  '/scenarios': typeof ScenariosRoute
-  '/settings': typeof SettingsRoute
-  '/upload': typeof UploadRoute
+  '/(root)': typeof rootRouteRouteWithChildren
+  '/simulation': typeof SimulationRouteRouteWithChildren
+  '/(root)/progress': typeof rootProgressRoute
+  '/(root)/scenarios': typeof rootScenariosRoute
+  '/(root)/settings': typeof rootSettingsRoute
+  '/(root)/upload': typeof rootUploadRoute
   '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/(root)/': typeof rootIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/simulation'
     | '/progress'
     | '/scenarios'
     | '/settings'
@@ -83,85 +99,126 @@ export interface FileRouteTypes {
     | '/simulation/$scenarioId'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
+    | '/simulation'
     | '/progress'
     | '/scenarios'
     | '/settings'
     | '/upload'
     | '/simulation/$scenarioId'
+    | '/'
   id:
     | '__root__'
-    | '/'
-    | '/progress'
-    | '/scenarios'
-    | '/settings'
-    | '/upload'
+    | '/(root)'
+    | '/simulation'
+    | '/(root)/progress'
+    | '/(root)/scenarios'
+    | '/(root)/settings'
+    | '/(root)/upload'
     | '/simulation/$scenarioId'
+    | '/(root)/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  ProgressRoute: typeof ProgressRoute
-  ScenariosRoute: typeof ScenariosRoute
-  SettingsRoute: typeof SettingsRoute
-  UploadRoute: typeof UploadRoute
-  SimulationScenarioIdRoute: typeof SimulationScenarioIdRoute
+  rootRouteRoute: typeof rootRouteRouteWithChildren
+  SimulationRouteRoute: typeof SimulationRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/upload': {
-      id: '/upload'
-      path: '/upload'
-      fullPath: '/upload'
-      preLoaderRoute: typeof UploadRouteImport
+    '/simulation': {
+      id: '/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof SimulationRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/scenarios': {
-      id: '/scenarios'
-      path: '/scenarios'
-      fullPath: '/scenarios'
-      preLoaderRoute: typeof ScenariosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/progress': {
-      id: '/progress'
-      path: '/progress'
-      fullPath: '/progress'
-      preLoaderRoute: typeof ProgressRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/': {
-      id: '/'
+    '/(root)': {
+      id: '/(root)'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof rootRouteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/(root)/': {
+      id: '/(root)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof rootIndexRouteImport
+      parentRoute: typeof rootRouteRoute
     }
     '/simulation/$scenarioId': {
       id: '/simulation/$scenarioId'
-      path: '/simulation/$scenarioId'
+      path: '/$scenarioId'
       fullPath: '/simulation/$scenarioId'
       preLoaderRoute: typeof SimulationScenarioIdRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof SimulationRouteRoute
+    }
+    '/(root)/upload': {
+      id: '/(root)/upload'
+      path: '/upload'
+      fullPath: '/upload'
+      preLoaderRoute: typeof rootUploadRouteImport
+      parentRoute: typeof rootRouteRoute
+    }
+    '/(root)/settings': {
+      id: '/(root)/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof rootSettingsRouteImport
+      parentRoute: typeof rootRouteRoute
+    }
+    '/(root)/scenarios': {
+      id: '/(root)/scenarios'
+      path: '/scenarios'
+      fullPath: '/scenarios'
+      preLoaderRoute: typeof rootScenariosRouteImport
+      parentRoute: typeof rootRouteRoute
+    }
+    '/(root)/progress': {
+      id: '/(root)/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof rootProgressRouteImport
+      parentRoute: typeof rootRouteRoute
     }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  ProgressRoute: ProgressRoute,
-  ScenariosRoute: ScenariosRoute,
-  SettingsRoute: SettingsRoute,
-  UploadRoute: UploadRoute,
+interface rootRouteRouteChildren {
+  rootProgressRoute: typeof rootProgressRoute
+  rootScenariosRoute: typeof rootScenariosRoute
+  rootSettingsRoute: typeof rootSettingsRoute
+  rootUploadRoute: typeof rootUploadRoute
+  rootIndexRoute: typeof rootIndexRoute
+}
+
+const rootRouteRouteChildren: rootRouteRouteChildren = {
+  rootProgressRoute: rootProgressRoute,
+  rootScenariosRoute: rootScenariosRoute,
+  rootSettingsRoute: rootSettingsRoute,
+  rootUploadRoute: rootUploadRoute,
+  rootIndexRoute: rootIndexRoute,
+}
+
+const rootRouteRouteWithChildren = rootRouteRoute._addFileChildren(
+  rootRouteRouteChildren,
+)
+
+interface SimulationRouteRouteChildren {
+  SimulationScenarioIdRoute: typeof SimulationScenarioIdRoute
+}
+
+const SimulationRouteRouteChildren: SimulationRouteRouteChildren = {
   SimulationScenarioIdRoute: SimulationScenarioIdRoute,
+}
+
+const SimulationRouteRouteWithChildren = SimulationRouteRoute._addFileChildren(
+  SimulationRouteRouteChildren,
+)
+
+const rootRouteChildren: RootRouteChildren = {
+  rootRouteRoute: rootRouteRouteWithChildren,
+  SimulationRouteRoute: SimulationRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
