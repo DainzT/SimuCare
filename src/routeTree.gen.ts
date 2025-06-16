@@ -9,22 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SimulationRouteRouteImport } from './routes/simulation/route'
+import { Route as UnknownRouteImport } from './routes/_unknown'
 import { Route as rootRouteRouteImport } from './routes/(root)/route'
+import { Route as authorizedRouteRouteImport } from './routes/(authorized)/route'
 import { Route as rootIndexRouteImport } from './routes/(root)/index'
-import { Route as SimulationScenarioIdRouteImport } from './routes/simulation/$scenarioId'
-import { Route as rootUploadRouteImport } from './routes/(root)/upload'
-import { Route as rootSettingsRouteImport } from './routes/(root)/settings'
-import { Route as rootScenariosRouteImport } from './routes/(root)/scenarios'
-import { Route as rootProgressRouteImport } from './routes/(root)/progress'
+import { Route as rootFeaturesRouteImport } from './routes/(root)/features'
+import { Route as rootAboutRouteImport } from './routes/(root)/about'
+import { Route as authorizedUploadRouteImport } from './routes/(authorized)/upload'
+import { Route as authorizedSettingsRouteImport } from './routes/(authorized)/settings'
+import { Route as authorizedScenariosRouteImport } from './routes/(authorized)/scenarios'
+import { Route as authorizedProgressRouteImport } from './routes/(authorized)/progress'
+import { Route as authorizedDashboardRouteImport } from './routes/(authorized)/dashboard'
+import { Route as authorizedSimulationRouteRouteImport } from './routes/(authorized)/simulation/route'
+import { Route as rootAuthSignupRouteImport } from './routes/(root)/auth/signup'
+import { Route as rootAuthLoginRouteImport } from './routes/(root)/auth/login'
+import { Route as authorizedSimulationScenarioIdRouteImport } from './routes/(authorized)/simulation/$scenarioId'
 
-const SimulationRouteRoute = SimulationRouteRouteImport.update({
-  id: '/simulation',
-  path: '/simulation',
+const UnknownRoute = UnknownRouteImport.update({
+  id: '/_unknown',
   getParentRoute: () => rootRouteImport,
 } as any)
 const rootRouteRoute = rootRouteRouteImport.update({
   id: '/(root)',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const authorizedRouteRoute = authorizedRouteRouteImport.update({
+  id: '/(authorized)',
   getParentRoute: () => rootRouteImport,
 } as any)
 const rootIndexRoute = rootIndexRouteImport.update({
@@ -32,104 +42,171 @@ const rootIndexRoute = rootIndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteRoute,
 } as any)
-const SimulationScenarioIdRoute = SimulationScenarioIdRouteImport.update({
-  id: '/$scenarioId',
-  path: '/$scenarioId',
-  getParentRoute: () => SimulationRouteRoute,
+const rootFeaturesRoute = rootFeaturesRouteImport.update({
+  id: '/features',
+  path: '/features',
+  getParentRoute: () => rootRouteRoute,
 } as any)
-const rootUploadRoute = rootUploadRouteImport.update({
+const rootAboutRoute = rootAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteRoute,
+} as any)
+const authorizedUploadRoute = authorizedUploadRouteImport.update({
   id: '/upload',
   path: '/upload',
-  getParentRoute: () => rootRouteRoute,
+  getParentRoute: () => authorizedRouteRoute,
 } as any)
-const rootSettingsRoute = rootSettingsRouteImport.update({
+const authorizedSettingsRoute = authorizedSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
-  getParentRoute: () => rootRouteRoute,
+  getParentRoute: () => authorizedRouteRoute,
 } as any)
-const rootScenariosRoute = rootScenariosRouteImport.update({
+const authorizedScenariosRoute = authorizedScenariosRouteImport.update({
   id: '/scenarios',
   path: '/scenarios',
-  getParentRoute: () => rootRouteRoute,
+  getParentRoute: () => authorizedRouteRoute,
 } as any)
-const rootProgressRoute = rootProgressRouteImport.update({
+const authorizedProgressRoute = authorizedProgressRouteImport.update({
   id: '/progress',
   path: '/progress',
+  getParentRoute: () => authorizedRouteRoute,
+} as any)
+const authorizedDashboardRoute = authorizedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => authorizedRouteRoute,
+} as any)
+const authorizedSimulationRouteRoute =
+  authorizedSimulationRouteRouteImport.update({
+    id: '/simulation',
+    path: '/simulation',
+    getParentRoute: () => authorizedRouteRoute,
+  } as any)
+const rootAuthSignupRoute = rootAuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
   getParentRoute: () => rootRouteRoute,
 } as any)
+const rootAuthLoginRoute = rootAuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => rootRouteRoute,
+} as any)
+const authorizedSimulationScenarioIdRoute =
+  authorizedSimulationScenarioIdRouteImport.update({
+    id: '/$scenarioId',
+    path: '/$scenarioId',
+    getParentRoute: () => authorizedSimulationRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof rootIndexRoute
-  '/simulation': typeof SimulationRouteRouteWithChildren
-  '/progress': typeof rootProgressRoute
-  '/scenarios': typeof rootScenariosRoute
-  '/settings': typeof rootSettingsRoute
-  '/upload': typeof rootUploadRoute
-  '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/simulation': typeof authorizedSimulationRouteRouteWithChildren
+  '/dashboard': typeof authorizedDashboardRoute
+  '/progress': typeof authorizedProgressRoute
+  '/scenarios': typeof authorizedScenariosRoute
+  '/settings': typeof authorizedSettingsRoute
+  '/upload': typeof authorizedUploadRoute
+  '/about': typeof rootAboutRoute
+  '/features': typeof rootFeaturesRoute
+  '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
+  '/auth/login': typeof rootAuthLoginRoute
+  '/auth/signup': typeof rootAuthSignupRoute
 }
 export interface FileRoutesByTo {
-  '/simulation': typeof SimulationRouteRouteWithChildren
-  '/progress': typeof rootProgressRoute
-  '/scenarios': typeof rootScenariosRoute
-  '/settings': typeof rootSettingsRoute
-  '/upload': typeof rootUploadRoute
-  '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
   '/': typeof rootIndexRoute
+  '/simulation': typeof authorizedSimulationRouteRouteWithChildren
+  '/dashboard': typeof authorizedDashboardRoute
+  '/progress': typeof authorizedProgressRoute
+  '/scenarios': typeof authorizedScenariosRoute
+  '/settings': typeof authorizedSettingsRoute
+  '/upload': typeof authorizedUploadRoute
+  '/about': typeof rootAboutRoute
+  '/features': typeof rootFeaturesRoute
+  '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
+  '/auth/login': typeof rootAuthLoginRoute
+  '/auth/signup': typeof rootAuthSignupRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/(authorized)': typeof authorizedRouteRouteWithChildren
   '/(root)': typeof rootRouteRouteWithChildren
-  '/simulation': typeof SimulationRouteRouteWithChildren
-  '/(root)/progress': typeof rootProgressRoute
-  '/(root)/scenarios': typeof rootScenariosRoute
-  '/(root)/settings': typeof rootSettingsRoute
-  '/(root)/upload': typeof rootUploadRoute
-  '/simulation/$scenarioId': typeof SimulationScenarioIdRoute
+  '/_unknown': typeof UnknownRoute
+  '/(authorized)/simulation': typeof authorizedSimulationRouteRouteWithChildren
+  '/(authorized)/dashboard': typeof authorizedDashboardRoute
+  '/(authorized)/progress': typeof authorizedProgressRoute
+  '/(authorized)/scenarios': typeof authorizedScenariosRoute
+  '/(authorized)/settings': typeof authorizedSettingsRoute
+  '/(authorized)/upload': typeof authorizedUploadRoute
+  '/(root)/about': typeof rootAboutRoute
+  '/(root)/features': typeof rootFeaturesRoute
   '/(root)/': typeof rootIndexRoute
+  '/(authorized)/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
+  '/(root)/auth/login': typeof rootAuthLoginRoute
+  '/(root)/auth/signup': typeof rootAuthSignupRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/simulation'
+    | '/dashboard'
     | '/progress'
     | '/scenarios'
     | '/settings'
     | '/upload'
+    | '/about'
+    | '/features'
     | '/simulation/$scenarioId'
+    | '/auth/login'
+    | '/auth/signup'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
     | '/simulation'
+    | '/dashboard'
     | '/progress'
     | '/scenarios'
     | '/settings'
     | '/upload'
+    | '/about'
+    | '/features'
     | '/simulation/$scenarioId'
-    | '/'
+    | '/auth/login'
+    | '/auth/signup'
   id:
     | '__root__'
+    | '/(authorized)'
     | '/(root)'
-    | '/simulation'
-    | '/(root)/progress'
-    | '/(root)/scenarios'
-    | '/(root)/settings'
-    | '/(root)/upload'
-    | '/simulation/$scenarioId'
+    | '/_unknown'
+    | '/(authorized)/simulation'
+    | '/(authorized)/dashboard'
+    | '/(authorized)/progress'
+    | '/(authorized)/scenarios'
+    | '/(authorized)/settings'
+    | '/(authorized)/upload'
+    | '/(root)/about'
+    | '/(root)/features'
     | '/(root)/'
+    | '/(authorized)/simulation/$scenarioId'
+    | '/(root)/auth/login'
+    | '/(root)/auth/signup'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  authorizedRouteRoute: typeof authorizedRouteRouteWithChildren
   rootRouteRoute: typeof rootRouteRouteWithChildren
-  SimulationRouteRoute: typeof SimulationRouteRouteWithChildren
+  UnknownRoute: typeof UnknownRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/simulation': {
-      id: '/simulation'
-      path: '/simulation'
-      fullPath: '/simulation'
-      preLoaderRoute: typeof SimulationRouteRouteImport
+    '/_unknown': {
+      id: '/_unknown'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof UnknownRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(root)': {
@@ -139,6 +216,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof rootRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(authorized)': {
+      id: '/(authorized)'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof authorizedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(root)/': {
       id: '/(root)/'
       path: '/'
@@ -146,79 +230,146 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof rootIndexRouteImport
       parentRoute: typeof rootRouteRoute
     }
-    '/simulation/$scenarioId': {
-      id: '/simulation/$scenarioId'
-      path: '/$scenarioId'
-      fullPath: '/simulation/$scenarioId'
-      preLoaderRoute: typeof SimulationScenarioIdRouteImport
-      parentRoute: typeof SimulationRouteRoute
+    '/(root)/features': {
+      id: '/(root)/features'
+      path: '/features'
+      fullPath: '/features'
+      preLoaderRoute: typeof rootFeaturesRouteImport
+      parentRoute: typeof rootRouteRoute
     }
-    '/(root)/upload': {
-      id: '/(root)/upload'
+    '/(root)/about': {
+      id: '/(root)/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof rootAboutRouteImport
+      parentRoute: typeof rootRouteRoute
+    }
+    '/(authorized)/upload': {
+      id: '/(authorized)/upload'
       path: '/upload'
       fullPath: '/upload'
-      preLoaderRoute: typeof rootUploadRouteImport
-      parentRoute: typeof rootRouteRoute
+      preLoaderRoute: typeof authorizedUploadRouteImport
+      parentRoute: typeof authorizedRouteRoute
     }
-    '/(root)/settings': {
-      id: '/(root)/settings'
+    '/(authorized)/settings': {
+      id: '/(authorized)/settings'
       path: '/settings'
       fullPath: '/settings'
-      preLoaderRoute: typeof rootSettingsRouteImport
-      parentRoute: typeof rootRouteRoute
+      preLoaderRoute: typeof authorizedSettingsRouteImport
+      parentRoute: typeof authorizedRouteRoute
     }
-    '/(root)/scenarios': {
-      id: '/(root)/scenarios'
+    '/(authorized)/scenarios': {
+      id: '/(authorized)/scenarios'
       path: '/scenarios'
       fullPath: '/scenarios'
-      preLoaderRoute: typeof rootScenariosRouteImport
-      parentRoute: typeof rootRouteRoute
+      preLoaderRoute: typeof authorizedScenariosRouteImport
+      parentRoute: typeof authorizedRouteRoute
     }
-    '/(root)/progress': {
-      id: '/(root)/progress'
+    '/(authorized)/progress': {
+      id: '/(authorized)/progress'
       path: '/progress'
       fullPath: '/progress'
-      preLoaderRoute: typeof rootProgressRouteImport
+      preLoaderRoute: typeof authorizedProgressRouteImport
+      parentRoute: typeof authorizedRouteRoute
+    }
+    '/(authorized)/dashboard': {
+      id: '/(authorized)/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof authorizedDashboardRouteImport
+      parentRoute: typeof authorizedRouteRoute
+    }
+    '/(authorized)/simulation': {
+      id: '/(authorized)/simulation'
+      path: '/simulation'
+      fullPath: '/simulation'
+      preLoaderRoute: typeof authorizedSimulationRouteRouteImport
+      parentRoute: typeof authorizedRouteRoute
+    }
+    '/(root)/auth/signup': {
+      id: '/(root)/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof rootAuthSignupRouteImport
       parentRoute: typeof rootRouteRoute
+    }
+    '/(root)/auth/login': {
+      id: '/(root)/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof rootAuthLoginRouteImport
+      parentRoute: typeof rootRouteRoute
+    }
+    '/(authorized)/simulation/$scenarioId': {
+      id: '/(authorized)/simulation/$scenarioId'
+      path: '/$scenarioId'
+      fullPath: '/simulation/$scenarioId'
+      preLoaderRoute: typeof authorizedSimulationScenarioIdRouteImport
+      parentRoute: typeof authorizedSimulationRouteRoute
     }
   }
 }
 
+interface authorizedSimulationRouteRouteChildren {
+  authorizedSimulationScenarioIdRoute: typeof authorizedSimulationScenarioIdRoute
+}
+
+const authorizedSimulationRouteRouteChildren: authorizedSimulationRouteRouteChildren =
+  {
+    authorizedSimulationScenarioIdRoute: authorizedSimulationScenarioIdRoute,
+  }
+
+const authorizedSimulationRouteRouteWithChildren =
+  authorizedSimulationRouteRoute._addFileChildren(
+    authorizedSimulationRouteRouteChildren,
+  )
+
+interface authorizedRouteRouteChildren {
+  authorizedSimulationRouteRoute: typeof authorizedSimulationRouteRouteWithChildren
+  authorizedDashboardRoute: typeof authorizedDashboardRoute
+  authorizedProgressRoute: typeof authorizedProgressRoute
+  authorizedScenariosRoute: typeof authorizedScenariosRoute
+  authorizedSettingsRoute: typeof authorizedSettingsRoute
+  authorizedUploadRoute: typeof authorizedUploadRoute
+}
+
+const authorizedRouteRouteChildren: authorizedRouteRouteChildren = {
+  authorizedSimulationRouteRoute: authorizedSimulationRouteRouteWithChildren,
+  authorizedDashboardRoute: authorizedDashboardRoute,
+  authorizedProgressRoute: authorizedProgressRoute,
+  authorizedScenariosRoute: authorizedScenariosRoute,
+  authorizedSettingsRoute: authorizedSettingsRoute,
+  authorizedUploadRoute: authorizedUploadRoute,
+}
+
+const authorizedRouteRouteWithChildren = authorizedRouteRoute._addFileChildren(
+  authorizedRouteRouteChildren,
+)
+
 interface rootRouteRouteChildren {
-  rootProgressRoute: typeof rootProgressRoute
-  rootScenariosRoute: typeof rootScenariosRoute
-  rootSettingsRoute: typeof rootSettingsRoute
-  rootUploadRoute: typeof rootUploadRoute
+  rootAboutRoute: typeof rootAboutRoute
+  rootFeaturesRoute: typeof rootFeaturesRoute
   rootIndexRoute: typeof rootIndexRoute
+  rootAuthLoginRoute: typeof rootAuthLoginRoute
+  rootAuthSignupRoute: typeof rootAuthSignupRoute
 }
 
 const rootRouteRouteChildren: rootRouteRouteChildren = {
-  rootProgressRoute: rootProgressRoute,
-  rootScenariosRoute: rootScenariosRoute,
-  rootSettingsRoute: rootSettingsRoute,
-  rootUploadRoute: rootUploadRoute,
+  rootAboutRoute: rootAboutRoute,
+  rootFeaturesRoute: rootFeaturesRoute,
   rootIndexRoute: rootIndexRoute,
+  rootAuthLoginRoute: rootAuthLoginRoute,
+  rootAuthSignupRoute: rootAuthSignupRoute,
 }
 
 const rootRouteRouteWithChildren = rootRouteRoute._addFileChildren(
   rootRouteRouteChildren,
 )
 
-interface SimulationRouteRouteChildren {
-  SimulationScenarioIdRoute: typeof SimulationScenarioIdRoute
-}
-
-const SimulationRouteRouteChildren: SimulationRouteRouteChildren = {
-  SimulationScenarioIdRoute: SimulationScenarioIdRoute,
-}
-
-const SimulationRouteRouteWithChildren = SimulationRouteRoute._addFileChildren(
-  SimulationRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
+  authorizedRouteRoute: authorizedRouteRouteWithChildren,
   rootRouteRoute: rootRouteRouteWithChildren,
-  SimulationRouteRoute: SimulationRouteRouteWithChildren,
+  UnknownRoute: UnknownRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
