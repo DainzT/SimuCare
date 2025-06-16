@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { Search, Filter, Clock, Star, Play } from 'lucide-react';
+import { Search, Clock, Play } from 'lucide-react';
 import { scenarios } from '../data/scenarios';
-import { Scenario } from '../types';
 
 export const ScenarioLibrary: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');

@@ -6,15 +6,12 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between py-4">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-4">
             <div className="rounded-lg bg-blue-600 p-2">
               <Activity className="h-8 w-8 text-white" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">NurseSim Pro</h1>
-              <p className="text-xs text-gray-600">
-                Clinical Simulation Platform
-              </p>
+              <h1 className="text-xl font-bold text-gray-900">SimuCare</h1>
             </div>
           </div>
           <div className="flex items-center space-x-4">

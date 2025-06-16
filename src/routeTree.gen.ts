@@ -15,15 +15,16 @@ import { Route as authorizedRouteRouteImport } from './routes/(authorized)/route
 import { Route as rootIndexRouteImport } from './routes/(root)/index'
 import { Route as rootFeaturesRouteImport } from './routes/(root)/features'
 import { Route as rootAboutRouteImport } from './routes/(root)/about'
-import { Route as authorizedUploadRouteImport } from './routes/(authorized)/upload'
-import { Route as authorizedSettingsRouteImport } from './routes/(authorized)/settings'
-import { Route as authorizedScenariosRouteImport } from './routes/(authorized)/scenarios'
-import { Route as authorizedProgressRouteImport } from './routes/(authorized)/progress'
-import { Route as authorizedDashboardRouteImport } from './routes/(authorized)/dashboard'
 import { Route as authorizedSimulationRouteRouteImport } from './routes/(authorized)/simulation/route'
+import { Route as authorizedDashboardRouteRouteImport } from './routes/(authorized)/dashboard/route'
+import { Route as authorizedDashboardIndexRouteImport } from './routes/(authorized)/dashboard/index'
 import { Route as rootAuthSignupRouteImport } from './routes/(root)/auth/signup'
 import { Route as rootAuthLoginRouteImport } from './routes/(root)/auth/login'
 import { Route as authorizedSimulationScenarioIdRouteImport } from './routes/(authorized)/simulation/$scenarioId'
+import { Route as authorizedDashboardUploadRouteImport } from './routes/(authorized)/dashboard/upload'
+import { Route as authorizedDashboardSettingsRouteImport } from './routes/(authorized)/dashboard/settings'
+import { Route as authorizedDashboardScenariosRouteImport } from './routes/(authorized)/dashboard/scenarios'
+import { Route as authorizedDashboardProgressRouteImport } from './routes/(authorized)/dashboard/progress'
 
 const UnknownRoute = UnknownRouteImport.update({
   id: '/_unknown',
@@ -52,36 +53,23 @@ const rootAboutRoute = rootAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteRoute,
 } as any)
-const authorizedUploadRoute = authorizedUploadRouteImport.update({
-  id: '/upload',
-  path: '/upload',
-  getParentRoute: () => authorizedRouteRoute,
-} as any)
-const authorizedSettingsRoute = authorizedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => authorizedRouteRoute,
-} as any)
-const authorizedScenariosRoute = authorizedScenariosRouteImport.update({
-  id: '/scenarios',
-  path: '/scenarios',
-  getParentRoute: () => authorizedRouteRoute,
-} as any)
-const authorizedProgressRoute = authorizedProgressRouteImport.update({
-  id: '/progress',
-  path: '/progress',
-  getParentRoute: () => authorizedRouteRoute,
-} as any)
-const authorizedDashboardRoute = authorizedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => authorizedRouteRoute,
-} as any)
 const authorizedSimulationRouteRoute =
   authorizedSimulationRouteRouteImport.update({
     id: '/simulation',
     path: '/simulation',
     getParentRoute: () => authorizedRouteRoute,
+  } as any)
+const authorizedDashboardRouteRoute =
+  authorizedDashboardRouteRouteImport.update({
+    id: '/dashboard',
+    path: '/dashboard',
+    getParentRoute: () => authorizedRouteRoute,
+  } as any)
+const authorizedDashboardIndexRoute =
+  authorizedDashboardIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => authorizedDashboardRouteRoute,
   } as any)
 const rootAuthSignupRoute = rootAuthSignupRouteImport.update({
   id: '/auth/signup',
@@ -99,99 +87,127 @@ const authorizedSimulationScenarioIdRoute =
     path: '/$scenarioId',
     getParentRoute: () => authorizedSimulationRouteRoute,
   } as any)
+const authorizedDashboardUploadRoute =
+  authorizedDashboardUploadRouteImport.update({
+    id: '/upload',
+    path: '/upload',
+    getParentRoute: () => authorizedDashboardRouteRoute,
+  } as any)
+const authorizedDashboardSettingsRoute =
+  authorizedDashboardSettingsRouteImport.update({
+    id: '/settings',
+    path: '/settings',
+    getParentRoute: () => authorizedDashboardRouteRoute,
+  } as any)
+const authorizedDashboardScenariosRoute =
+  authorizedDashboardScenariosRouteImport.update({
+    id: '/scenarios',
+    path: '/scenarios',
+    getParentRoute: () => authorizedDashboardRouteRoute,
+  } as any)
+const authorizedDashboardProgressRoute =
+  authorizedDashboardProgressRouteImport.update({
+    id: '/progress',
+    path: '/progress',
+    getParentRoute: () => authorizedDashboardRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof rootIndexRoute
+  '/dashboard': typeof authorizedDashboardRouteRouteWithChildren
   '/simulation': typeof authorizedSimulationRouteRouteWithChildren
-  '/dashboard': typeof authorizedDashboardRoute
-  '/progress': typeof authorizedProgressRoute
-  '/scenarios': typeof authorizedScenariosRoute
-  '/settings': typeof authorizedSettingsRoute
-  '/upload': typeof authorizedUploadRoute
   '/about': typeof rootAboutRoute
   '/features': typeof rootFeaturesRoute
+  '/dashboard/progress': typeof authorizedDashboardProgressRoute
+  '/dashboard/scenarios': typeof authorizedDashboardScenariosRoute
+  '/dashboard/settings': typeof authorizedDashboardSettingsRoute
+  '/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
   '/auth/login': typeof rootAuthLoginRoute
   '/auth/signup': typeof rootAuthSignupRoute
+  '/dashboard/': typeof authorizedDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof rootIndexRoute
   '/simulation': typeof authorizedSimulationRouteRouteWithChildren
-  '/dashboard': typeof authorizedDashboardRoute
-  '/progress': typeof authorizedProgressRoute
-  '/scenarios': typeof authorizedScenariosRoute
-  '/settings': typeof authorizedSettingsRoute
-  '/upload': typeof authorizedUploadRoute
   '/about': typeof rootAboutRoute
   '/features': typeof rootFeaturesRoute
+  '/dashboard/progress': typeof authorizedDashboardProgressRoute
+  '/dashboard/scenarios': typeof authorizedDashboardScenariosRoute
+  '/dashboard/settings': typeof authorizedDashboardSettingsRoute
+  '/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
   '/auth/login': typeof rootAuthLoginRoute
   '/auth/signup': typeof rootAuthSignupRoute
+  '/dashboard': typeof authorizedDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/(authorized)': typeof authorizedRouteRouteWithChildren
   '/(root)': typeof rootRouteRouteWithChildren
   '/_unknown': typeof UnknownRoute
+  '/(authorized)/dashboard': typeof authorizedDashboardRouteRouteWithChildren
   '/(authorized)/simulation': typeof authorizedSimulationRouteRouteWithChildren
-  '/(authorized)/dashboard': typeof authorizedDashboardRoute
-  '/(authorized)/progress': typeof authorizedProgressRoute
-  '/(authorized)/scenarios': typeof authorizedScenariosRoute
-  '/(authorized)/settings': typeof authorizedSettingsRoute
-  '/(authorized)/upload': typeof authorizedUploadRoute
   '/(root)/about': typeof rootAboutRoute
   '/(root)/features': typeof rootFeaturesRoute
   '/(root)/': typeof rootIndexRoute
+  '/(authorized)/dashboard/progress': typeof authorizedDashboardProgressRoute
+  '/(authorized)/dashboard/scenarios': typeof authorizedDashboardScenariosRoute
+  '/(authorized)/dashboard/settings': typeof authorizedDashboardSettingsRoute
+  '/(authorized)/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/(authorized)/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
   '/(root)/auth/login': typeof rootAuthLoginRoute
   '/(root)/auth/signup': typeof rootAuthSignupRoute
+  '/(authorized)/dashboard/': typeof authorizedDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/simulation'
     | '/dashboard'
-    | '/progress'
-    | '/scenarios'
-    | '/settings'
-    | '/upload'
+    | '/simulation'
     | '/about'
     | '/features'
+    | '/dashboard/progress'
+    | '/dashboard/scenarios'
+    | '/dashboard/settings'
+    | '/dashboard/upload'
     | '/simulation/$scenarioId'
     | '/auth/login'
     | '/auth/signup'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/simulation'
-    | '/dashboard'
-    | '/progress'
-    | '/scenarios'
-    | '/settings'
-    | '/upload'
     | '/about'
     | '/features'
+    | '/dashboard/progress'
+    | '/dashboard/scenarios'
+    | '/dashboard/settings'
+    | '/dashboard/upload'
     | '/simulation/$scenarioId'
     | '/auth/login'
     | '/auth/signup'
+    | '/dashboard'
   id:
     | '__root__'
     | '/(authorized)'
     | '/(root)'
     | '/_unknown'
-    | '/(authorized)/simulation'
     | '/(authorized)/dashboard'
-    | '/(authorized)/progress'
-    | '/(authorized)/scenarios'
-    | '/(authorized)/settings'
-    | '/(authorized)/upload'
+    | '/(authorized)/simulation'
     | '/(root)/about'
     | '/(root)/features'
     | '/(root)/'
+    | '/(authorized)/dashboard/progress'
+    | '/(authorized)/dashboard/scenarios'
+    | '/(authorized)/dashboard/settings'
+    | '/(authorized)/dashboard/upload'
     | '/(authorized)/simulation/$scenarioId'
     | '/(root)/auth/login'
     | '/(root)/auth/signup'
+    | '/(authorized)/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -244,47 +260,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof rootAboutRouteImport
       parentRoute: typeof rootRouteRoute
     }
-    '/(authorized)/upload': {
-      id: '/(authorized)/upload'
-      path: '/upload'
-      fullPath: '/upload'
-      preLoaderRoute: typeof authorizedUploadRouteImport
-      parentRoute: typeof authorizedRouteRoute
-    }
-    '/(authorized)/settings': {
-      id: '/(authorized)/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof authorizedSettingsRouteImport
-      parentRoute: typeof authorizedRouteRoute
-    }
-    '/(authorized)/scenarios': {
-      id: '/(authorized)/scenarios'
-      path: '/scenarios'
-      fullPath: '/scenarios'
-      preLoaderRoute: typeof authorizedScenariosRouteImport
-      parentRoute: typeof authorizedRouteRoute
-    }
-    '/(authorized)/progress': {
-      id: '/(authorized)/progress'
-      path: '/progress'
-      fullPath: '/progress'
-      preLoaderRoute: typeof authorizedProgressRouteImport
-      parentRoute: typeof authorizedRouteRoute
-    }
-    '/(authorized)/dashboard': {
-      id: '/(authorized)/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof authorizedDashboardRouteImport
-      parentRoute: typeof authorizedRouteRoute
-    }
     '/(authorized)/simulation': {
       id: '/(authorized)/simulation'
       path: '/simulation'
       fullPath: '/simulation'
       preLoaderRoute: typeof authorizedSimulationRouteRouteImport
       parentRoute: typeof authorizedRouteRoute
+    }
+    '/(authorized)/dashboard': {
+      id: '/(authorized)/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof authorizedDashboardRouteRouteImport
+      parentRoute: typeof authorizedRouteRoute
+    }
+    '/(authorized)/dashboard/': {
+      id: '/(authorized)/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof authorizedDashboardIndexRouteImport
+      parentRoute: typeof authorizedDashboardRouteRoute
     }
     '/(root)/auth/signup': {
       id: '/(root)/auth/signup'
@@ -307,8 +302,58 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authorizedSimulationScenarioIdRouteImport
       parentRoute: typeof authorizedSimulationRouteRoute
     }
+    '/(authorized)/dashboard/upload': {
+      id: '/(authorized)/dashboard/upload'
+      path: '/upload'
+      fullPath: '/dashboard/upload'
+      preLoaderRoute: typeof authorizedDashboardUploadRouteImport
+      parentRoute: typeof authorizedDashboardRouteRoute
+    }
+    '/(authorized)/dashboard/settings': {
+      id: '/(authorized)/dashboard/settings'
+      path: '/settings'
+      fullPath: '/dashboard/settings'
+      preLoaderRoute: typeof authorizedDashboardSettingsRouteImport
+      parentRoute: typeof authorizedDashboardRouteRoute
+    }
+    '/(authorized)/dashboard/scenarios': {
+      id: '/(authorized)/dashboard/scenarios'
+      path: '/scenarios'
+      fullPath: '/dashboard/scenarios'
+      preLoaderRoute: typeof authorizedDashboardScenariosRouteImport
+      parentRoute: typeof authorizedDashboardRouteRoute
+    }
+    '/(authorized)/dashboard/progress': {
+      id: '/(authorized)/dashboard/progress'
+      path: '/progress'
+      fullPath: '/dashboard/progress'
+      preLoaderRoute: typeof authorizedDashboardProgressRouteImport
+      parentRoute: typeof authorizedDashboardRouteRoute
+    }
   }
 }
+
+interface authorizedDashboardRouteRouteChildren {
+  authorizedDashboardProgressRoute: typeof authorizedDashboardProgressRoute
+  authorizedDashboardScenariosRoute: typeof authorizedDashboardScenariosRoute
+  authorizedDashboardSettingsRoute: typeof authorizedDashboardSettingsRoute
+  authorizedDashboardUploadRoute: typeof authorizedDashboardUploadRoute
+  authorizedDashboardIndexRoute: typeof authorizedDashboardIndexRoute
+}
+
+const authorizedDashboardRouteRouteChildren: authorizedDashboardRouteRouteChildren =
+  {
+    authorizedDashboardProgressRoute: authorizedDashboardProgressRoute,
+    authorizedDashboardScenariosRoute: authorizedDashboardScenariosRoute,
+    authorizedDashboardSettingsRoute: authorizedDashboardSettingsRoute,
+    authorizedDashboardUploadRoute: authorizedDashboardUploadRoute,
+    authorizedDashboardIndexRoute: authorizedDashboardIndexRoute,
+  }
+
+const authorizedDashboardRouteRouteWithChildren =
+  authorizedDashboardRouteRoute._addFileChildren(
+    authorizedDashboardRouteRouteChildren,
+  )
 
 interface authorizedSimulationRouteRouteChildren {
   authorizedSimulationScenarioIdRoute: typeof authorizedSimulationScenarioIdRoute
@@ -325,21 +370,13 @@ const authorizedSimulationRouteRouteWithChildren =
   )
 
 interface authorizedRouteRouteChildren {
+  authorizedDashboardRouteRoute: typeof authorizedDashboardRouteRouteWithChildren
   authorizedSimulationRouteRoute: typeof authorizedSimulationRouteRouteWithChildren
-  authorizedDashboardRoute: typeof authorizedDashboardRoute
-  authorizedProgressRoute: typeof authorizedProgressRoute
-  authorizedScenariosRoute: typeof authorizedScenariosRoute
-  authorizedSettingsRoute: typeof authorizedSettingsRoute
-  authorizedUploadRoute: typeof authorizedUploadRoute
 }
 
 const authorizedRouteRouteChildren: authorizedRouteRouteChildren = {
+  authorizedDashboardRouteRoute: authorizedDashboardRouteRouteWithChildren,
   authorizedSimulationRouteRoute: authorizedSimulationRouteRouteWithChildren,
-  authorizedDashboardRoute: authorizedDashboardRoute,
-  authorizedProgressRoute: authorizedProgressRoute,
-  authorizedScenariosRoute: authorizedScenariosRoute,
-  authorizedSettingsRoute: authorizedSettingsRoute,
-  authorizedUploadRoute: authorizedUploadRoute,
 }
 
 const authorizedRouteRouteWithChildren = authorizedRouteRoute._addFileChildren(

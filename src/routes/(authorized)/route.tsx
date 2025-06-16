@@ -6,10 +6,5 @@ export const Route = createFileRoute("/(authorized)")({
 });
 
 function RouteComponent() {
-  return (
-    <div>
-      <Navigation />
-      <Outlet />
-    </div>
-  );
+  return <Outlet />;
 }

@@ -1,8 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Link, useRouter } from '@tanstack/react-router';
-import { Send, ArrowLeft, AlertCircle, CheckCircle, Clock, User, Bot } from 'lucide-react';
-import { scenarios } from '../data/scenarios';
-import { Message } from '../types';
+import React, { useState, useRef, useEffect } from "react";
+import { Link, useRouter } from "@tanstack/react-router";
+import {
+  Send,
+  ArrowLeft,
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  User,
+  Bot,
+} from "lucide-react";
+import { scenarios } from "../data/scenarios";
+import { Message } from "../types";
 
 interface SimulationProps {
   scenarioId: string;
@@ -10,14 +18,14 @@ interface SimulationProps {
 
 export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [inputMessage, setInputMessage] = useState('');
+  const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [sessionStartTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
 
-  const scenario = scenarios.find(s => s.id === scenarioId);
+  const scenario = scenarios.find((s) => s.id === scenarioId);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -25,15 +33,15 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
   }, []);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
     // Initialize with scenario context
     const initialMessage: Message = {
-      id: '1',
+      id: "1",
       content: `Welcome to the "${scenario?.title}" simulation. You are a registered nurse working in the ${scenario?.specialty} unit. The scenario begins now. Please describe your initial assessment approach.`,
-      sender: 'ai',
+      sender: "ai",
       timestamp: new Date(),
     };
     setMessages([initialMessage]);
@@ -45,12 +53,12 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
     const userMessage: Message = {
       id: Date.now().toString(),
       content: inputMessage,
-      sender: 'user',
+      sender: "user",
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputMessage('');
+    setMessages((prev) => [...prev, userMessage]);
+    setInputMessage("");
     setIsTyping(true);
 
     // Simulate AI response with feedback
@@ -59,13 +67,13 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: aiResponse.content,
-        sender: 'ai',
+        sender: "ai",
         timestamp: new Date(),
         feedback: aiResponse.feedback,
         isCorrect: aiResponse.isCorrect,
       };
 
-      setMessages(prev => [...prev, aiMessage]);
+      setMessages((prev) => [...prev, aiMessage]);
       setIsTyping(false);
     }, 1500);
   };
@@ -74,17 +82,20 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
     // Simplified AI response logic - in production, this would connect to an AI service
     const responses = [
       {
-        content: "Good approach! You've correctly identified the need to assess vital signs first. The patient's blood pressure is 140/90, heart rate 95, respiratory rate 18, and temperature 99.2°F. What would be your next priority?",
+        content:
+          "Good approach! You've correctly identified the need to assess vital signs first. The patient's blood pressure is 140/90, heart rate 95, respiratory rate 18, and temperature 99.2°F. What would be your next priority?",
         feedback: "Excellent prioritization of vital signs assessment.",
         isCorrect: true,
       },
       {
-        content: "That's a reasonable action, but consider the patient's current pain level first. On a scale of 1-10, the patient rates their pain as 8/10. How does this information change your approach?",
+        content:
+          "That's a reasonable action, but consider the patient's current pain level first. On a scale of 1-10, the patient rates their pain as 8/10. How does this information change your approach?",
         feedback: "Remember to always assess pain as the 5th vital sign.",
         isCorrect: false,
       },
       {
-        content: "Perfect! You've demonstrated evidence-based practice by following the nursing process. The patient responds well to your intervention. Document your findings and continue monitoring.",
+        content:
+          "Perfect! You've demonstrated evidence-based practice by following the nursing process. The patient responds well to your intervention. Document your findings and continue monitoring.",
         feedback: "Outstanding clinical reasoning and intervention.",
         isCorrect: true,
       },
@@ -94,29 +105,35 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
   };
 
   const formatTime = (date: Date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
   const getElapsedTime = () => {
-    const elapsed = Math.floor((currentTime.getTime() - sessionStartTime.getTime()) / 1000);
+    const elapsed = Math.floor(
+      (currentTime.getTime() - sessionStartTime.getTime()) / 1000,
+    );
     const minutes = Math.floor(elapsed / 60);
     const seconds = elapsed % 60;
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
 
   const handleEndSimulation = () => {
-    router.navigate({ to: '/scenarios' });
+    router.navigate({ to: "/dashboard/scenarios" });
   };
 
   if (!scenario) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Scenario Not Found</h1>
-          <p className="text-gray-600 mb-6">The requested scenario could not be found.</p>
+          <h1 className="mb-4 text-2xl font-bold text-gray-900">
+            Scenario Not Found
+          </h1>
+          <p className="mb-6 text-gray-600">
+            The requested scenario could not be found.
+          </p>
           <Link
-            to="/scenarios"
-            className="bg-blue-600 text-white rounded-lg px-4 py-2 font-medium hover:bg-blue-700 transition-colors duration-200"
+            to="/dashboard/scenarios"
+            className="rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors duration-200 hover:bg-blue-700"
           >
             Back to Scenarios
           </Link>
@@ -126,31 +143,35 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex h-screen flex-col bg-gray-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b border-gray-200 px-6 py-4">
+      <div className="border-b border-gray-200 bg-white px-6 py-4 shadow-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link
-              to="/scenarios"
-              className="text-gray-600 hover:text-gray-900 transition-colors duration-200"
+              to="/dashboard/scenarios"
+              className="text-gray-600 transition-colors duration-200 hover:text-gray-900"
             >
               <ArrowLeft className="h-5 w-5" />
             </Link>
             <div>
-              <h1 className="text-lg font-bold text-gray-900">{scenario.title}</h1>
-              <p className="text-sm text-gray-600">{scenario.specialty} • {scenario.difficulty}</p>
+              <h1 className="text-lg font-bold text-gray-900">
+                {scenario.title}
+              </h1>
+              <p className="text-sm text-gray-600">
+                {scenario.specialty} • {scenario.difficulty}
+              </p>
             </div>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-gray-600">
               <Clock className="h-4 w-4" />
               <span>{getElapsedTime()}</span>
             </div>
-            <button 
+            <button
               onClick={handleEndSimulation}
-              className="bg-red-100 text-red-700 px-3 py-1 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors duration-200"
+              className="rounded-lg bg-red-100 px-3 py-1 text-sm font-medium text-red-700 transition-colors duration-200 hover:bg-red-200"
             >
               End Simulation
             </button>
@@ -160,38 +181,53 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-6 py-4">
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="mx-auto max-w-4xl space-y-4">
           {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-3xl rounded-lg px-4 py-3 ${
-                message.sender === 'user'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-white border border-gray-200 text-gray-900'
-              }`}>
+            <div
+              key={message.id}
+              className={`flex ${message.sender === "user" ? "justify-end" : "justify-start"}`}
+            >
+              <div
+                className={`max-w-3xl rounded-lg px-4 py-3 ${
+                  message.sender === "user"
+                    ? "bg-blue-600 text-white"
+                    : "border border-gray-200 bg-white text-gray-900"
+                }`}
+              >
                 <div className="flex items-start space-x-2">
-                  {message.sender === 'ai' && <Bot className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />}
-                  {message.sender === 'user' && <User className="h-5 w-5 text-white mt-0.5 flex-shrink-0" />}
+                  {message.sender === "ai" && (
+                    <Bot className="mt-0.5 h-5 w-5 flex-shrink-0 text-blue-600" />
+                  )}
+                  {message.sender === "user" && (
+                    <User className="mt-0.5 h-5 w-5 flex-shrink-0 text-white" />
+                  )}
                   <div className="flex-1">
                     <p className="text-sm">{message.content}</p>
-                    <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'}`}>
+                    <p
+                      className={`mt-1 text-xs ${message.sender === "user" ? "text-blue-100" : "text-gray-500"}`}
+                    >
                       {formatTime(message.timestamp)}
                     </p>
                   </div>
                 </div>
-                
+
                 {message.feedback && (
-                  <div className={`mt-3 p-2 rounded-md ${
-                    message.isCorrect 
-                      ? 'bg-green-50 border border-green-200' 
-                      : 'bg-yellow-50 border border-yellow-200'
-                  }`}>
+                  <div
+                    className={`mt-3 rounded-md p-2 ${
+                      message.isCorrect
+                        ? "border border-green-200 bg-green-50"
+                        : "border border-yellow-200 bg-yellow-50"
+                    }`}
+                  >
                     <div className="flex items-start space-x-2">
                       {message.isCorrect ? (
-                        <CheckCircle className="h-4 w-4 text-green-600 mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-green-600" />
                       ) : (
-                        <AlertCircle className="h-4 w-4 text-yellow-600 mt-0.5 flex-shrink-0" />
+                        <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-yellow-600" />
                       )}
-                      <p className={`text-xs ${message.isCorrect ? 'text-green-800' : 'text-yellow-800'}`}>
+                      <p
+                        className={`text-xs ${message.isCorrect ? "text-green-800" : "text-yellow-800"}`}
+                      >
                         {message.feedback}
                       </p>
                     </div>
@@ -200,16 +236,22 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
               </div>
             </div>
           ))}
-          
+
           {isTyping && (
             <div className="flex justify-start">
-              <div className="bg-white border border-gray-200 rounded-lg px-4 py-3 max-w-xs">
+              <div className="max-w-xs rounded-lg border border-gray-200 bg-white px-4 py-3">
                 <div className="flex items-center space-x-2">
                   <Bot className="h-5 w-5 text-blue-600" />
                   <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400"></div>
+                    <div
+                      className="h-2 w-2 animate-bounce rounded-full bg-gray-400"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="h-2 w-2 animate-bounce rounded-full bg-gray-400"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
                   </div>
                 </div>
               </div>
@@ -220,21 +262,21 @@ export const Simulation: React.FC<SimulationProps> = ({ scenarioId }) => {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t border-gray-200 px-6 py-4">
-        <div className="max-w-4xl mx-auto">
+      <div className="border-t border-gray-200 bg-white px-6 py-4">
+        <div className="mx-auto max-w-4xl">
           <div className="flex space-x-4">
             <input
               type="text"
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+              onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
               placeholder="Describe your nursing action or assessment..."
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="flex-1 rounded-lg border border-gray-300 px-4 py-2 focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
             />
             <button
               onClick={handleSendMessage}
               disabled={!inputMessage.trim() || isTyping}
-              className="bg-blue-600 text-white rounded-lg px-4 py-2 font-medium hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 flex items-center space-x-2"
+              className="flex items-center space-x-2 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white transition-colors duration-200 hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <Send className="h-4 w-4" />
               <span>Send</span>
