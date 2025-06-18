@@ -19,7 +19,7 @@ export const Route = createRootRoute({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "NurseSimulate - Nursing Skills Simulation",
+        title: "SimuCare - Nursing Skills Simulation",
       },
     ],
     links: [

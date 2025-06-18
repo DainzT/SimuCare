@@ -12,9 +12,8 @@ import {
   Shield,
   Brain,
 } from "lucide-react";
-import Navbar from "./-Navbar";
 
-export const Route = createFileRoute("/(root)/")({
+export const Route = createFileRoute("/(root)/(main)/")({
   component: LandingPage,
 });
 
@@ -63,7 +62,7 @@ function LandingPage() {
       name: "Sarah Chen",
       role: "BSN Student, Johns Hopkins",
       content:
-        "NurseSim Pro has transformed my clinical preparation. The AI feedback is incredibly detailed and helps me identify areas I never knew I needed to work on.",
+        "SimuCare has transformed my clinical preparation. The AI feedback is incredibly detailed and helps me identify areas I never knew I needed to work on.",
       rating: 5,
     },
     {
@@ -77,7 +76,7 @@ function LandingPage() {
       name: "Dr. Emily Watson",
       role: "Nursing Instructor, Stanford",
       content:
-        "I recommend NurseSim Pro to all my students. It bridges the gap between theory and practice beautifully.",
+        "I recommend SimuCare to all my students. It bridges the gap between theory and practice beautifully.",
       rating: 5,
     },
   ];
@@ -91,7 +90,6 @@ function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navbar />
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-teal-50 py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -220,7 +218,7 @@ function LandingPage() {
               Trusted by Nursing Students Worldwide
             </h2>
             <p className="text-xl text-gray-600">
-              See what students and educators are saying about NurseSim Pro
+              See what students and educators are saying about SimuCare
             </p>
           </div>
 
@@ -263,7 +261,7 @@ function LandingPage() {
           </h2>
           <p className="mx-auto mb-8 max-w-2xl text-xl text-blue-100">
             Join thousands of nursing students who are already practicing safely
-            and building confidence with NurseSim Pro.
+            and building confidence with SimuCare.
           </p>
           <Link
             to="/dashboard"
@@ -285,7 +283,7 @@ function LandingPage() {
                   <Activity className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-bold">NurseSim Pro</h3>
+                  <h3 className="font-bold">SimuCare</h3>
                   <p className="text-xs text-gray-400">Clinical Simulation</p>
                 </div>
               </div>
@@ -366,7 +364,7 @@ function LandingPage() {
             </div>
           </div>
           <div className="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2024 NurseSim Pro. All rights reserved.</p>
+            <p>&copy; 2025 SimuCare. All rights reserved.</p>
           </div>
         </div>
       </footer>

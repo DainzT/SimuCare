@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { 
-  Activity, 
+import {  
   Brain, 
   BookOpen, 
   Users, 
@@ -20,7 +19,7 @@ import {
   Headphones
 } from 'lucide-react'
 
-export const Route = createFileRoute('/(root)/features')({
+export const Route = createFileRoute('/(root)/(main)/features')({
   component: FeaturesPage,
 })
 
@@ -162,36 +161,7 @@ function FeaturesPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="bg-blue-600 p-2 rounded-lg">
-                <Activity className="h-8 w-8 text-white" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900">NurseSim Pro</h1>
-                <p className="text-xs text-gray-600">Clinical Simulation Platform</p>
-              </div>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link to="/features" className="text-blue-600 hover:text-blue-800 px-3 py-2 text-sm font-medium">
-                Features
-              </Link>
-              <Link to="/about" className="text-gray-600 hover:text-gray-900 px-3 py-2 text-sm font-medium">
-                About
-              </Link>
-              <Link 
-                to="/dashboard"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
-              >
-                Get Started
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+
 
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-50 via-white to-teal-50 py-16">
