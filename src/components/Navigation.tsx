@@ -6,7 +6,6 @@ import {
   Upload,
   BarChart3,
   Settings,
-  Heart,
   Activity,
 } from "lucide-react";
 

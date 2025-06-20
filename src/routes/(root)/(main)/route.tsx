@@ -9,7 +9,7 @@ function RouteComponent() {
   return (
     <>
       <Navbar />
-      <Outlet />;
+      <Outlet />
     </>
   );
 }

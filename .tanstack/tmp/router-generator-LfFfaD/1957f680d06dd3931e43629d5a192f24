@@ -19,7 +19,6 @@ import { Route as rootAuthSignupRouteImport } from './routes/(root)/auth/signup'
 import { Route as rootAuthLoginRouteImport } from './routes/(root)/auth/login'
 import { Route as rootmainFeaturesRouteImport } from './routes/(root)/(main)/features'
 import { Route as rootmainAboutRouteImport } from './routes/(root)/(main)/about'
-import { Route as authorizedSimulationEndsimulationRouteImport } from './routes/(authorized)/simulation/endsimulation'
 import { Route as authorizedSimulationScenarioIdRouteImport } from './routes/(authorized)/simulation/$scenarioId'
 import { Route as authorizedDashboardUploadRouteImport } from './routes/(authorized)/dashboard/upload'
 import { Route as authorizedDashboardSettingsRouteImport } from './routes/(authorized)/dashboard/settings'
@@ -77,12 +76,6 @@ const rootmainAboutRoute = rootmainAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootmainRouteRoute,
 } as any)
-const authorizedSimulationEndsimulationRoute =
-  authorizedSimulationEndsimulationRouteImport.update({
-    id: '/endsimulation',
-    path: '/endsimulation',
-    getParentRoute: () => authorizedSimulationRouteRoute,
-  } as any)
 const authorizedSimulationScenarioIdRoute =
   authorizedSimulationScenarioIdRouteImport.update({
     id: '/$scenarioId',
@@ -123,7 +116,6 @@ export interface FileRoutesByFullPath {
   '/dashboard/settings': typeof authorizedDashboardSettingsRoute
   '/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
-  '/simulation/endsimulation': typeof authorizedSimulationEndsimulationRoute
   '/about': typeof rootmainAboutRoute
   '/features': typeof rootmainFeaturesRoute
   '/auth/login': typeof rootAuthLoginRoute
@@ -138,7 +130,6 @@ export interface FileRoutesByTo {
   '/dashboard/settings': typeof authorizedDashboardSettingsRoute
   '/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
-  '/simulation/endsimulation': typeof authorizedSimulationEndsimulationRoute
   '/about': typeof rootmainAboutRoute
   '/features': typeof rootmainFeaturesRoute
   '/auth/login': typeof rootAuthLoginRoute
@@ -156,7 +147,6 @@ export interface FileRoutesById {
   '/(authorized)/dashboard/settings': typeof authorizedDashboardSettingsRoute
   '/(authorized)/dashboard/upload': typeof authorizedDashboardUploadRoute
   '/(authorized)/simulation/$scenarioId': typeof authorizedSimulationScenarioIdRoute
-  '/(authorized)/simulation/endsimulation': typeof authorizedSimulationEndsimulationRoute
   '/(root)/(main)/about': typeof rootmainAboutRoute
   '/(root)/(main)/features': typeof rootmainFeaturesRoute
   '/(root)/auth/login': typeof rootAuthLoginRoute
@@ -175,7 +165,6 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/upload'
     | '/simulation/$scenarioId'
-    | '/simulation/endsimulation'
     | '/about'
     | '/features'
     | '/auth/login'
@@ -190,7 +179,6 @@ export interface FileRouteTypes {
     | '/dashboard/settings'
     | '/dashboard/upload'
     | '/simulation/$scenarioId'
-    | '/simulation/endsimulation'
     | '/about'
     | '/features'
     | '/auth/login'
@@ -207,7 +195,6 @@ export interface FileRouteTypes {
     | '/(authorized)/dashboard/settings'
     | '/(authorized)/dashboard/upload'
     | '/(authorized)/simulation/$scenarioId'
-    | '/(authorized)/simulation/endsimulation'
     | '/(root)/(main)/about'
     | '/(root)/(main)/features'
     | '/(root)/auth/login'
@@ -295,13 +282,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof rootmainAboutRouteImport
       parentRoute: typeof rootmainRouteRoute
     }
-    '/(authorized)/simulation/endsimulation': {
-      id: '/(authorized)/simulation/endsimulation'
-      path: '/endsimulation'
-      fullPath: '/simulation/endsimulation'
-      preLoaderRoute: typeof authorizedSimulationEndsimulationRouteImport
-      parentRoute: typeof authorizedSimulationRouteRoute
-    }
     '/(authorized)/simulation/$scenarioId': {
       id: '/(authorized)/simulation/$scenarioId'
       path: '/$scenarioId'
@@ -364,14 +344,11 @@ const authorizedDashboardRouteRouteWithChildren =
 
 interface authorizedSimulationRouteRouteChildren {
   authorizedSimulationScenarioIdRoute: typeof authorizedSimulationScenarioIdRoute
-  authorizedSimulationEndsimulationRoute: typeof authorizedSimulationEndsimulationRoute
 }
 
 const authorizedSimulationRouteRouteChildren: authorizedSimulationRouteRouteChildren =
   {
     authorizedSimulationScenarioIdRoute: authorizedSimulationScenarioIdRoute,
-    authorizedSimulationEndsimulationRoute:
-      authorizedSimulationEndsimulationRoute,
   }
 
 const authorizedSimulationRouteRouteWithChildren =
